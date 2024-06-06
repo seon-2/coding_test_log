@@ -1,16 +1,21 @@
-# 전체 다 돌면서 과일 개수 확인
-# 딕셔너리 활용
+from sys import stdin
+from collections import defaultdict
 
-from sys import stdin as s
+# 과일 개수 세기
+def count_fruits():
+    fruit_counts = defaultdict(int)
+    for _ in range(int(stdin.readline())):
+        fruit, count = stdin.readline().strip().split()
+        fruit_counts[fruit] += int(count)
+    return fruit_counts
 
-N = int(s.readline())
-data = [s.readline().strip().split() for _ in range(N)]
-hali = {'STRAWBERRY': 0, 'BANANA': 0, 'LIME': 0, 'PLUM': 0}
+# 과일 개수 중 5인 것 확인
+def has_enough_fruits(fruit_counts):
+    return any(count == 5 for count in fruit_counts.values())
 
-for d in data:
-    hali[d[0]] += int(d[1])
+def main():
+    fruit_counts = count_fruits()
+    print("YES" if has_enough_fruits(fruit_counts) else "NO")
 
-if 5 in list(hali.values()):
-    print("YES")
-else:
-    print("NO")
+if __name__ == "__main__":
+    main()
