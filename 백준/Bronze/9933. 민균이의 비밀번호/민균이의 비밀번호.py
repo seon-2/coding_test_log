@@ -2,7 +2,6 @@
 
 import sys
 from heapq import *
-# sys.stdin = open("input.txt", "rt")
 data = sys.stdin.readline
 
 N = int(data())
