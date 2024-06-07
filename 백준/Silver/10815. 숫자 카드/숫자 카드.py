@@ -1,9 +1,9 @@
 from sys import stdin
 
-N = int(stdin.readline())
-card_set = set(map(int, stdin.readline().split()))
-M = int(stdin.readline())
-numbers = list(map(int, stdin.readline().split()))
+N = int(input())
+card_set = set(map(int, input().split()))
+M = int(input())
+numbers = list(map(int, input().split()))
 
 result = []
 for number in numbers:
