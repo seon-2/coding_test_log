@@ -1,16 +1,17 @@
-numbers = [0] * 10001
+def cal_generator(n):
+    result = n
+    for digit in str(n):
+        result += int(digit)
+    return result
+
+selfnumbers = set(range(1, 10001))
+generators = set()
+
 for i in range(1, 10001):
-    num = i
-    divided = [j for j in str(i)]
-    for k in divided:
-        num += int(k)
-    if num < 10001:
-        numbers[num] = 1
+    gen = cal_generator(i)
+    if gen <= 10000:
+        generators.add(gen)
 
-results = []
+selfnumbers -= generators
 
-for l in range(1, 10001):
-    if numbers[l] == 0:
-        results.append(l)
-
-print("\n".join(map(str, results)))
+print("\n".join(map(str, sorted(selfnumbers))))
