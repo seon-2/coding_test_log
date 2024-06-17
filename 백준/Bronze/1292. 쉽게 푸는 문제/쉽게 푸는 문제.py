@@ -1,31 +1,28 @@
-# 누적합
-
 N, M = map(int, input().split())
 
-
-def make_sequence(M):
+# 수열과 누적합을 동시 생성
+def make_sequence_and_prefix_sum(m):
     sequence = []
-    i = 1
-    while len(sequence) < M+1:
-        for j in range(i):
-            sequence.append(i)
-        i += 1
-    return sequence
+    prefix_sum = [0] * (m + 1)
+    current_number = 1
+    index = 1
+    
+    while index <= m:
+        for _ in range(current_number):
+            if index > m:
+                break
+            sequence.append(current_number)
+            prefix_sum[index] = prefix_sum[index - 1] + current_number
+            index += 1
+        current_number += 1
+
+    return prefix_sum
 
 
-def get_prefix_sum(m, sequence):
-    prefix_list = [0] * (m+1)
-    prefix_list[0] = sequence[0]
-    for i in range(1, m+1):
-        prefix_list[i] = prefix_list[i-1] + sequence[i]
-    return prefix_list
+prefix_sum = make_sequence_and_prefix_sum(M)
 
-
-sequence = make_sequence(M)
-prefix_list = get_prefix_sum(M, sequence)
-
-# 수열에서 N번째 숫자부터 M번째 숫자까지의 합
+# 구간 합 계산
 if N == 1:
-    print(prefix_list[M-1])
+    print(prefix_sum[M])
 else:
-    print(prefix_list[M-1] - prefix_list[N-2])
+    print(prefix_sum[M] - prefix_sum[N - 1])
