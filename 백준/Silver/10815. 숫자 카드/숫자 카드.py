@@ -1,13 +1,8 @@
 from sys import stdin
 
-N = int(input())
-card_set = set(map(int, input().split()))
-M = int(input())
-numbers = list(map(int, input().split()))
+N = int(stdin.readline())
+card_set = set(map(int, stdin.readline().split()))
+M = int(stdin.readline())
+numbers = map(int, stdin.readline().split())
 
-result = []
-
-for number in numbers:
-    result.append(1 if number in card_set else 0)
-
-print(' '.join(map(str, result)))
+print(' '.join('1' if num in card_set else '0' for num in numbers))
