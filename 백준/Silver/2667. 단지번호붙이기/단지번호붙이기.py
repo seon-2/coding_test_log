@@ -2,35 +2,37 @@ from sys import stdin as s
 from collections import deque
 
 
+N = int(s.readline())
+maps = [list(s.readline().strip()) for _ in range(N)]
+houses = []
+dq = deque()
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+
 def bfs(x, y):
-    queue = deque([(x, y)])
-    graph[x][y] = 0  # 방문 처리
+    dq.append([x, y])
+    maps[x][y] = '2' # 방문처리
     count = 1
 
-    while queue:
-        x, y = queue.popleft()
+    while dq:
+        now_x, now_y = dq.popleft()
+        for i in range(4):
+            new_x = now_x + dx[i]
+            new_y = now_y + dy[i]
 
-        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            nx, ny = x + dx, y + dy
+            if 0 <= new_x < N and 0 <= new_y < N: # 범위 안에 있다면
+                if maps[new_x][new_y] == '1':
+                    dq.append([new_x, new_y])
+                    maps[new_x][new_y] = '2'
+                    count += 1
 
-            if 0 <= nx < n and 0 <= ny < n and graph[nx][ny] == 1:
-                graph[nx][ny] = 0  # 방문 처리
-                queue.append((nx, ny))
-                count += 1
+    houses.append(count)
 
-    return count
+for i in range(N):
+    for j in range(N):
+        if maps[i][j] == '1':
+            bfs(i, j)
 
-
-n = int(s.readline())
-graph = [list(map(int, s.readline().rstrip())) for _ in range(n)]
-
-result = []
-for i in range(n):
-    for j in range(n):
-        if graph[i][j] == 1:
-            result.append(bfs(i, j))
-
-result.sort()
-print(len(result))
-for r in result:
-    print(r)
+print(len(houses))
+for house in sorted(houses):
+    print(house)
