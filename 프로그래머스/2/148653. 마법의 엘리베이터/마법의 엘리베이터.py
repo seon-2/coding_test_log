@@ -1,18 +1,15 @@
 def solution(storey):
     answer = 0
-    digits = list(map(int, str(storey)))
-    
-    for i in reversed(range(len(digits))):
-        current_digit = digits[i]
+    while storey:
+        digit = storey % 10
+        next_digit = (storey // 10) % 10
         
-        if current_digit > 5 or (current_digit == 5 and i > 0 and digits[i-1] >= 5):
-            answer += 10 - current_digit
-            if i > 0:
-                digits[i-1] += 1
-            else:
-                answer += 1
+        if digit > 5 or (digit == 5 and next_digit >= 5):
+            answer += 10 - digit
+            storey += 10
         else:
-            answer += current_digit
-
+            answer += digit
+        
+        storey //= 10
+    
     return answer
-# 1 2 3 4 / 5 / 6 7 8 9
