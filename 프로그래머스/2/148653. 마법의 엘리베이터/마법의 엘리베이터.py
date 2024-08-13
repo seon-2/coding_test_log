@@ -1,26 +1,18 @@
 def solution(storey):
     answer = 0
-    # new_storey = list(str(storey))
-    new_storey = list(map(int, list((str(storey)))))
+    digits = list(map(int, str(storey)))
     
-    print(new_storey)
-    for i in range(len(new_storey)-1, -1, -1):
-        number = new_storey[i]
-        if number > 5:
-            answer += 10 - number
+    for i in reversed(range(len(digits))):
+        current_digit = digits[i]
+        
+        if current_digit > 5 or (current_digit == 5 and i > 0 and digits[i-1] >= 5):
+            answer += 10 - current_digit
             if i > 0:
-                new_storey[i-1] += 1
+                digits[i-1] += 1
             else:
                 answer += 1
-        elif number == 5:
-            if new_storey[i-1] > 4 and i > 0:
-                answer += 10 - number
-                new_storey[i-1] += 1
-            else:
-                answer += number
         else:
-            answer += number
-        print(new_storey, answer)
-    return answer
+            answer += current_digit
 
+    return answer
 # 1 2 3 4 / 5 / 6 7 8 9
